@@ -50,7 +50,7 @@ push_path = cur_path
 relate_dir_path = ''
 user_custom_version = true
 verify_podspec_format = true
-pod_repo_name = trunk
+pod_repo_name = 'trunk'
 pod_repo_source =
 
 # 检查是否存在 SpecPushFile 文件，如果不存在，那么创建
@@ -90,7 +90,7 @@ File.open(cur_path + '/PodPushFile') do |f|
         elsif key.to_s == 'VERIFY_PODSPEC_FORMAT' and not value.nil?
             verify_podspec_format = value
         elsif key.to_s == 'POD_REPO_NAME' and not value.nil?
-            pod_repo_name = value
+            pod_repo_name = value.to_s
         elsif key.to_s == 'POD_REPO_SOURCE' and not value.nil?
             pod_repo_source = value
         end
