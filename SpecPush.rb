@@ -236,7 +236,7 @@ system('git push origin --tags')
 # 验证podspec格式是否正确
 if verify_podspec_format == true
     puts color_text("Start verify podspec '#{podspec_path}'...", Color.white)
-    if system("pod spec lint #{podspec_path} --allow-warnings") == false
+    if system("pod spec lint #{podspec_path} --allow-warnings --sources=#{git_source},https://github.com/CocoaPods/Specs") == false
         puts color_text("Pod spec' format invalid", Color.red)
         return
     end
@@ -245,12 +245,12 @@ end
 # 提交pod spec到spec仓库
 puts color_text("Start push pod '#{podspec_path}' to remote repo '#{pod_repo_name}'", Color.white)
 if pod_repo_name == 'trunk'
-    if (is_static_lib == true ? system("pod trunk push #{podspec_path} --allow-warnings --use-libraries --sources='#{git_source}'") : system("pod trunk push #{podspec_path} --allow-warnings --sources='#{git_source}'")) == false 
+    if (is_static_lib == true ? system("pod trunk push #{podspec_path} --allow-warnings --use-libraries --sources=#{git_source},https://github.com/CocoaPods/Specs") : system("pod trunk push #{podspec_path} --allow-warnings --sources=#{git_source},,https://github.com/CocoaPods/Specs")) == false 
         puts "If not timeout, you need to check your 'trunk' account like: 'pod trunk me', and register code is 'pod trunk register <your email> <your name>'"
         return
     end
 else 
-    if (is_static_lib == true ? system("pod repo push #{pod_repo_name} #{podspec_path} --allow-warnings --use-libraries --sources='#{git_source}'") : system("pod repo push #{pod_repo_name} #{podspec_path} --allow-warnings --sources='#{git_source}'"))  == false
+    if (is_static_lib == true ? system("pod repo push #{pod_repo_name} #{podspec_path} --allow-warnings --use-libraries --sources=#{git_source},https://github.com/CocoaPods/Specs") : system("pod repo push #{pod_repo_name} #{podspec_path} --allow-warnings --sources=#{git_source},https://github.com/CocoaPods/Specs"))  == false
         return
     end
 end
