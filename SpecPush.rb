@@ -37,10 +37,21 @@ def color_text(text, color = Color.natural)
     return "\033[#{color}m#{text}\033[0m"
 end
 
+
+# 拉取最新代码
+if system('git pull --rebase origin || git rebase --abort') == false 
+    puts color_text("There is a conflict, please handle it and retry", Color.red)
+    return
+end
+
+
 cur_path = Dir.pwd
 push_path = cur_path
 relate_dir_path = ''
 user_custom_version = true
+verify_podspec_format = true
+pod_repo_name = trunk
+pod_repo_source =
 
 # 检查是否存在 SpecPushFile 文件，如果不存在，那么创建
 if not File::exist?(cur_path + '/PodPushFile')
@@ -49,7 +60,13 @@ if not File::exist?(cur_path + '/PodPushFile')
         f.write("#写入*.podspec所在的相对目录，不写默认会在脚本执行的目录下查找
 PUSH_DIR_PATH=
 #是否允许用户自定义版本号，不填或填true将允许用户设置自定义的版本号，而不是自增版本号 
-USER_CUSTOM_VERSION=true")
+USER_CUSTOM_VERSION=true
+#默认开启验证，可以跳过验证阶段
+VERIFY_PODSPEC_FORMAT=true
+#pod repo的名字，如果是私有库就填私有库的名字
+POD_REPO_NAME=trunk
+#pod repo的源地址
+POD_REPO_SOURCE=https://cdn.cocoapods.org/")
     end
     puts color_text('Create PodPushFile', Color.green) 
 end
@@ -70,6 +87,12 @@ File.open(cur_path + '/PodPushFile') do |f|
         elsif key.to_s == 'USER_CUSTOM_VERSION' and not value.nil?
             user_custom_version = value
             # puts "Find custom version config=#{user_custom_version}"
+        elsif key.to_s == 'VERIFY_PODSPEC_FORMAT' and not value.nil?
+            verify_podspec_format = value
+        elsif key.to_s == 'POD_REPO_NAME' and not value.nil?
+            pod_repo_name = value
+        elsif key.to_s == 'POD_REPO_SOURCE' and not value.nil?
+            pod_repo_source = value
         end
     end
 end
@@ -183,13 +206,25 @@ system("cp -f #{temp_podspec_path} #{podspec_path}")
 system("rm -f #{temp_podspec_path}")
 
 
-# 拉取最新代码
-system("git stash save '#{new_version}'")
-system('git pull --rebase origin')
-if system('git stash pop') == false 
-    puts color_text("There is a conflict, please handle it and retry", Color.red)
+# 如果本地没有这个repo，那么添加
+if system("pod repo | grep #{pod_repo_name}") == false
+    puts color_text("Add pod repo named '#{pod_repo_name}' with source: #{pod_repo_source}", Color.white)
+    system("pod repo add #{pod_repo_name} #{pod_repo_source}")
+end
+
+# 验证podspec格式是否正确
+if verify_podspec_format == true && system("pod spec lint #{podspec_path} --allow-warnings") == false
+    puts color_text("Podrepo format invalid", Color.red)
     return
 end
-# system("git commit -am 'update version to #{new_version}'")
-# system('git push origin')
-# system("git tag #{new_version} && git push origin --tags")
+
+# 提交代码到远程仓库
+system("git commit -am 'update version to #{new_version}'")
+system('git push origin')
+system("git tag #{new_version}")
+system('git push origin --tags')
+
+# 提交pod spec到spec仓库
+system("pod repo push #{pod_repo_name} --allow-warnings || pod repo push #{pod_repo_name} --allow-warnings --use-libraries")
+
+puts color_text("Update success!", Color.green)
