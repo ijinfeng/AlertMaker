@@ -104,7 +104,7 @@ end
 # 搜索podspec路径
 podspec_path = ''
 find_podspec_reg = relate_dir_path.length == 0 ? '' : (relate_dir_path + '/') + '*.podspec'
-puts "Find podspec reg = #{find_podspec_reg}"
+# puts "Find podspec reg = #{find_podspec_reg}"
 Dir::glob(find_podspec_reg) do |f|
     podspec_path = f
 end
@@ -201,7 +201,7 @@ File.open(temp_podspec_absolute_path, 'r+') do |t|
     end
 end
 
-puts "Update version from " + color_text("#{cur_version}",Color.green) + " to " + color_text("#{new_version}", Color.green)
+puts color_text("Update version from ",Color.white) + color_text("#{cur_version}",Color.green) + color_text(" to ",Color.white) + color_text("#{new_version}", Color.green)
 
 # 将新数据反写回到原始podspec中
 system("cp -f #{temp_podspec_path} #{podspec_path}")
