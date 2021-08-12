@@ -1,1 +1,4 @@
-PUSH_PATH=AlertMaker
+#写入*.podspec所在的相对目录，不写默认会在脚本执行的目录下查找
+PUSH_DIR_PATH=AlertMaker
+#是否允许用户自定义版本号，不填或填true将允许用户设置自定义的版本号，而不是自增版本号 
+USER_CUSTOM_VERSION=true

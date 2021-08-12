@@ -3,7 +3,7 @@
 
 
 # 拉取最新代码
-system('git stash')
+# system('git stash')
 system('git pull --rebase origin')
 
 class Color
@@ -70,7 +70,7 @@ File.open(cur_path + '/PodPushFile') do |f|
         end
         puts "key=#{key},value=#{value}"
         if key.to_s == 'PUSH_DIR_PATH' and not value.nil?
-            relate_dir_path = value.to_s.gsub("\n", '')
+            relate_dir_path = value.to_s.gsub("\n", '').gsub(' ','').gsub("\t",'')
             push_path = cur_path + '/' + relate_dir_path
             # puts "Find releate dir path=#{relate_dir_path}"
         elsif key.to_s == 'USER_CUSTOM_VERSION' and not value.nil?
@@ -84,7 +84,9 @@ end
 
 # 搜索podspec路径
 podspec_path = ''
-Dir::glob((relate_dir_path.length == 0 ? '' : (relate_dir_path + '/')) + '*.podspec') do |f|
+find_podspec_reg = relate_dir_path.length == 0 ? '' : (relate_dir_path + '/') + '*.podspec'
+puts "Find podspec reg = #{find_podspec_reg}"
+Dir::glob(find_podspec_reg) do |f|
     podspec_path = f
 end
 if not File::exist?(podspec_path)
@@ -186,5 +188,5 @@ puts "Update version from " + color_text("#{cur_version}",Color.green) + " to " 
 system("cp -f #{temp_podspec_path} #{podspec_path}")
 system("rm -f #{temp_podspec_path}")
 
-system("git stash pop && git commit -am 'update version to #{new_version}'")
-system("git tag #{new_version}")
+# system("git stash pop && git commit -am 'update version to #{new_version}'")
+# system("git tag #{new_version}")
