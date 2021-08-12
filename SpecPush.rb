@@ -53,6 +53,7 @@ user_custom_version = true
 verify_podspec_format = true
 pod_repo_name = 'trunk'
 pod_repo_source =
+is_static_lib = false
 
 # 检查是否存在 SpecPushFile 文件，如果不存在，那么创建
 if not File::exist?(cur_path + '/PodPushFile')
@@ -67,7 +68,9 @@ VERIFY_PODSPEC_FORMAT=true
 #pod repo的名字，如果是私有库就填私有库的名字
 POD_REPO_NAME=trunk
 #pod repo的源地址
-POD_REPO_SOURCE=https://cdn.cocoapods.org/")
+POD_REPO_SOURCE=https://cdn.cocoapods.org/
+#如果这个库是静态库，那么需要设置为true
+POD_IS_STATIC_LIBRARY=true")
     end
     puts color_text('Create PodPushFile', Color.green) 
 end
@@ -93,6 +96,8 @@ File.open(cur_path + '/PodPushFile') do |f|
             pod_repo_name = value.to_s
         elsif key.to_s == 'POD_REPO_SOURCE' and not value.nil?
             pod_repo_source = value
+        elsif key.to_s == 'POD_IS_STATIC_LIBRARY' and not value.nil?
+            is_static_lib = value == 'true'
         end
     end
 end
@@ -231,12 +236,12 @@ end
 # 提交pod spec到spec仓库
 puts color_text("Start push pod '#{podspec_path}' to remote repo '#{pod_repo_name}'", Color.white)
 if pod_repo_name == 'trunk'
-    if system("pod trunk push #{podspec_path} --allow-warnings || pod trunk push #{podspec_path} --allow-warnings --use-libraries") == false 
+    if (is_static_lib == true ? system("pod trunk push #{podspec_path} --allow-warnings --use-libraries") : system("pod trunk push #{podspec_path} --allow-warnings")) == false 
         puts "If not timeout, you need to check your 'trunk' account like: 'pod trunk me', and register code is 'pod trunk register <your email> <your name>'"
         return
     end
 else 
-    if system("pod repo push #{pod_repo_name} #{podspec_path} --allow-warnings || pod repo push #{pod_repo_name} #{podspec_path} --allow-warnings --use-libraries") == false
+    if (is_static_lib == true ? system("pod repo push #{pod_repo_name} #{podspec_path} --allow-warnings --use-libraries") : system("pod repo push #{pod_repo_name} #{podspec_path} --allow-warnings"))  == false
         return
     end
 end
