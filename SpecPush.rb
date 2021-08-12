@@ -231,7 +231,7 @@ system("git tag #{new_version}")
 system('git push origin --tags')
 
 # 提交pod spec到spec仓库
-puts color_text("Start push pod repo to remote '#{pod_repo_name}'", Color.white)
+puts color_text("Start push pod '#{podspec_path}' to remote repo '#{pod_repo_name}'", Color.white)
 if system("pod repo push #{pod_repo_name} #{podspec_path} --allow-warnings || pod repo push #{pod_repo_name} #{podspec_path} --allow-warnings --use-libraries") == true 
     puts color_text("Update success ☕️! Current version = #{cur_version}", Color.green)
 end
