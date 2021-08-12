@@ -233,11 +233,11 @@ end
 puts color_text('Start upload code to remote', Color.white)
 system("git commit -am 'update version to #{new_version}'")
 if system('git push origin') == false
-    die_log('[!] git push error')
+    die_log('[!] git push code error')
 end
 system("git tag #{new_version}")
 if system('git push origin --tags') == false
-    die_log('[!] git push error')
+    die_log('[!] git push tags error')
     return
 end
 

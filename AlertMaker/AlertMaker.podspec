@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'AlertMaker'
-  s.version          = '0.1.23'
+  s.version          = '0.1.24'
   s.summary          = 'A short description of AlertMaker.'
 
 # This description is used to generate tags and improve search results.
