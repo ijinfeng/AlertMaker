@@ -37,6 +37,10 @@ def color_text(text, color = Color.natural)
     return "\033[#{color}m#{text}\033[0m"
 end
 
+def die_log(text)
+    puts color_text(text, Color.red)
+    system('exit') 
+end
 
 # 拉取最新代码
 # if system('git pull --rebase origin') == false 
@@ -229,15 +233,19 @@ end
 # 提交代码到远程仓库
 puts color_text('Start upload code to remote', Color.white)
 system("git commit -am 'update version to #{new_version}'")
-system('git push origin')
+if system('git push origin') == false
+    die_log('[!] git push error')
+end
 system("git tag #{new_version}")
-system('git push origin --tags')
+if system('git push origin --tags') == false
+    die_log('[!] git push error')
+end
 
 # 验证podspec格式是否正确
 if verify_podspec_format == true
     puts color_text("Start verify podspec '#{podspec_path}'...", Color.white)
     if system("pod spec lint #{podspec_path} --allow-warnings") == false
-        puts color_text("\nPod spec' format invalid", Color.red)
+        die_log("[!] pod spec' format invalid")
         return
     end
 end
