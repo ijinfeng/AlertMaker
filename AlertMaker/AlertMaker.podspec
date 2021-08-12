@@ -28,13 +28,13 @@ TODO: Add long description of the pod here.
   s.source           = { :git => 'https://github.com/ijinfeng/AlertMaker.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '8.0'
 
-  s.source_files = 'AlertMaker/Classes/*.{h,m}'
+  s.source_files = 'AlertMaker','AlertMaker/Classes/**/*'
 
-  s.subspec 'Button' do |ss|
-    ss.source_files = 'AlertMaker/Classes/Button/*.{h,m}'
-  end
+  # s.subspec 'Button' do |ss|
+  #   ss.source_files = 'AlertMaker/Classes/Button/*.{h,m}'
+  # end
 
   # s.resource_bundles = {
   #   'AlertMaker' => ['AlertMaker/Assets/*.png']

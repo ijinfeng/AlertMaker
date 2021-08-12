@@ -1,7 +1,7 @@
 #写入*.podspec所在的相对目录，不写默认会在脚本执行的目录下查找
 PUSH_DIR_PATH=AlertMaker
 #是否允许用户自定义版本号，不填或填true将允许用户设置自定义的版本号，而不是自增版本号 
-USER_CUSTOM_VERSION=false
+USER_CUSTOM_VERSION=true
 #默认开启验证，可以跳过验证阶段
 VERIFY_PODSPEC_FORMAT=true
 #pod repo的名字，如果是私有库就填私有库的名字
