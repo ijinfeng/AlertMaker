@@ -80,7 +80,7 @@ File.open(cur_path + '/PodPushFile') do |f|
         if key_value.count > 1 
             value = key_value.last
         end
-        puts "key=#{key},value=#{value}"
+        # puts "key=#{key},value=#{value}"
         if key.to_s == 'PUSH_DIR_PATH' and not value.nil?
             relate_dir_path = value.to_s.gsub("\n", '').gsub(' ','').gsub("\t",'')
             push_path = cur_path + '/' + relate_dir_path
