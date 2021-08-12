@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'AlertMaker'
-  s.version          = '0.0.30'
+  s.version          = '0.0.31'
   s.summary          = 'A short description of AlertMaker.'
 
 # This description is used to generate tags and improve search results.
@@ -30,10 +30,10 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '9.0'
 
-  s.source_files = 'AlertMaker/Classes/**/*'
+  s.source_files = 'AlertMaker/Classes/*'
 
   s.subspec 'Button' do |ss|
-    ss.source_files = '*.{h,m}'
+    ss.source_files = 'AlertMaker/Classes/Button/*'
   end
 
   # s.resource_bundles = {
