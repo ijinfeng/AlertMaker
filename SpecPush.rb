@@ -111,6 +111,7 @@ find_podspec_reg = relate_dir_path.length == 0 ? '' : (relate_dir_path + '/') + 
 Dir::glob(find_podspec_reg) do |f|
     podspec_path = f
 end
+puts "Find podspec in path=#{podspec_path}"
 if not File::exist?(podspec_path)
     puts color_text "Can't find any podspec file in path: #{podspec_path}, please modify PodPushFile' PUSH_DIR_PATH(key)", Color.red
     return 
