@@ -72,6 +72,7 @@ POD_REPO_SOURCE=https://cdn.cocoapods.org/")
     puts color_text('Create PodPushFile', Color.green) 
 end
 
+puts color_text('Parse PodPushFile...', Color.white)
 File.open(cur_path + '/PodPushFile') do |f|
     f.each_line do |line|
         key_value = line.split('=')
