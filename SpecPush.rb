@@ -62,8 +62,6 @@ if not File::exist?(cur_path + '/PodPushFile')
 PUSH_DIR_PATH=
 #是否允许用户自定义版本号，不填或填true将允许用户设置自定义的版本号，而不是自增版本号 
 USER_CUSTOM_VERSION=true
-#是否需要在执行脚本前自动不同代码，设置为true就会先拉取代码
-AUTO_SYNC_CODE=false
 #默认开启验证，可以跳过验证阶段
 VERIFY_PODSPEC_FORMAT=true
 #pod repo的名字，如果是私有库就填私有库的名字
@@ -88,9 +86,9 @@ File.open(cur_path + '/PodPushFile') do |f|
             relate_dir_path = value
             push_path = cur_path + '/' + relate_dir_path
         elsif key.to_s == 'USER_CUSTOM_VERSION' and not value.nil?
-            user_custom_version = value.to_i
+            user_custom_version = value == 'true' 
         elsif key.to_s == 'VERIFY_PODSPEC_FORMAT' and not value.nil?
-            verify_podspec_format = value.to_i
+            verify_podspec_format = value == 'true'
         elsif key.to_s == 'POD_REPO_NAME' and not value.nil?
             pod_repo_name = value.to_s
         elsif key.to_s == 'POD_REPO_SOURCE' and not value.nil?
@@ -178,7 +176,7 @@ File.open(temp_podspec_absolute_path, 'r+') do |t|
             version_desc = /.*\.version[\s]*=.*/.match line
             if not version_desc.nil?
                 version_coms = version_desc.to_s.split('=')
-                if input_valid and user_custom_version
+                if input_valid == true and user_custom_version == true
                     new_version = input_version.to_s
                 else
                     version_num = version_coms.last.to_s.gsub("'",'')
@@ -214,22 +212,21 @@ if system("pod repo | grep #{pod_repo_name}") == false
     system("pod repo add #{pod_repo_name} #{pod_repo_source}")
 end
 
-# 验证podspec格式是否正确
-puts "=======verify_podspec_format=#{verify_podspec_format}"
-if verify_podspec_format == true
-    puts color_text('Start verify podspec...', Color.while)
-    if system("pod spec lint #{podspec_path} --allow-warnings") == false
-        puts color_text("Podrepo format invalid", Color.red)
-        return
-    end
-end
-
 # 提交代码到远程仓库
 puts color_text('Start upload code to remote', Color.white)
 system("git commit -am 'update version to #{new_version}'")
 system('git push origin')
 system("git tag #{new_version}")
 system('git push origin --tags')
+
+# 验证podspec格式是否正确
+if verify_podspec_format == true
+    puts color_text("Start verify podspec '#{podspec_path}'...", Color.white)
+    if system("pod spec lint #{podspec_path} --allow-warnings") == false
+        puts color_text("Pod spec' format invalid", Color.red)
+        return
+    end
+end
 
 # 提交pod spec到spec仓库
 puts color_text("Start push pod '#{podspec_path}' to remote repo '#{pod_repo_name}'", Color.white)
