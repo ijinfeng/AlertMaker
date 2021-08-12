@@ -184,7 +184,7 @@ system("rm -f #{temp_podspec_path}")
 
 
 # 拉取最新代码
-system('git stash')
+system("git stash save '#{new_version}'")
 system('git pull --rebase origin')
 if system('git stash pop') == false 
     puts color_text("There is a conflict, please handle it and retry", Color.red)
@@ -192,6 +192,4 @@ if system('git stash pop') == false
 end
 system("git commit -am 'update version to #{new_version}'")
 system('git push origin')
-# system("git tag #{new_version}")
-#asd
-# 123123
+system("git tag #{new_version} && git push origin --tags")
