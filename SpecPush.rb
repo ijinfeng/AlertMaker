@@ -173,6 +173,7 @@ if not File.exist? temp_podspec_absolute_path
 end
 
 new_version = ''
+git_source = ''
 File.open(temp_podspec_absolute_path, 'r+') do |t|
     File.open(podspec_absolute_path) do |f|
         f.each_line do |line|
@@ -198,6 +199,13 @@ File.open(temp_podspec_absolute_path, 'r+') do |t|
                 end
                 puts color_text("New version = ",Color.white) + color_text("#{new_version}", Color.green)
                 write_line = version_coms.first.to_s + '=' + " '#{new_version}'" + "\n"
+            end
+            source_desc = /.*\.source[\s]*=.*/.match line
+            if not source_desc.nil?
+                source_desc = /:git.*,/.match source_desc.to_s
+                source_desc = /'.*'/.match source_desc.to_s
+                git_source = source_desc.to_s.gsub("'",'')
+                puts "git source is #{git_source}"
             end
             t.write write_line  
         end
@@ -236,12 +244,12 @@ end
 # 提交pod spec到spec仓库
 puts color_text("Start push pod '#{podspec_path}' to remote repo '#{pod_repo_name}'", Color.white)
 if pod_repo_name == 'trunk'
-    if (is_static_lib == true ? system("pod trunk push #{podspec_path} --allow-warnings --use-libraries") : system("pod trunk push #{podspec_path} --allow-warnings")) == false 
+    if (is_static_lib == true ? system("pod trunk push #{podspec_path} --allow-warnings --use-libraries --sources='#{git_source}'") : system("pod trunk push #{podspec_path} --allow-warnings --sources='#{git_source}'")) == false 
         puts "If not timeout, you need to check your 'trunk' account like: 'pod trunk me', and register code is 'pod trunk register <your email> <your name>'"
         return
     end
 else 
-    if (is_static_lib == true ? system("pod repo push #{pod_repo_name} #{podspec_path} --allow-warnings --use-libraries") : system("pod repo push #{pod_repo_name} #{podspec_path} --allow-warnings"))  == false
+    if (is_static_lib == true ? system("pod repo push #{pod_repo_name} #{podspec_path} --allow-warnings --use-libraries --sources='#{git_source}'") : system("pod repo push #{pod_repo_name} #{podspec_path} --allow-warnings --sources='#{git_source}'"))  == false
         return
     end
 end
