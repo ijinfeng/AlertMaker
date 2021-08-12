@@ -39,7 +39,8 @@ end
 
 
 # 拉取最新代码
-if system('git pull --rebase origin || git rebase --abort') == false 
+if system('git pull --rebase origin') == false 
+    system('git rebase --abort')
     puts color_text("There is a conflict, please handle it and retry", Color.red)
     return
 end
