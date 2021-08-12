@@ -187,10 +187,11 @@ system("rm -f #{temp_podspec_path}")
 system('git stash')
 system('git pull --rebase origin')
 if system('git stash pop') == false 
-    puts "有冲突"
+    puts color_text("There is a conflict, please handle it and retry", Color.red)
     return
 end
-
-puts "res=#{res}"
-# system("git commit -am 'update version to #{new_version}'")
+system("git commit -am 'update version to #{new_version}'")
+system('git push origin')
 # system("git tag #{new_version}")
+#asd
+# 123
