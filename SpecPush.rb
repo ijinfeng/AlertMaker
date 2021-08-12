@@ -39,7 +39,6 @@ end
 
 def die_log(text)
     puts color_text(text, Color.red)
-    system('exit') 
 end
 
 # 拉取最新代码
@@ -117,7 +116,7 @@ Dir::glob(find_podspec_reg) do |f|
 end
 puts "Find podspec in path=#{podspec_path}"
 if not File::exist?(podspec_path)
-    puts color_text "Can't find any podspec file in path: #{podspec_path}, please modify PodPushFile' PUSH_DIR_PATH(key)", Color.red
+    die_log("Can't find any podspec file in path: #{podspec_path}, please modify PodPushFile' PUSH_DIR_PATH(key)")
     return 
 end
 
@@ -239,6 +238,7 @@ end
 system("git tag #{new_version}")
 if system('git push origin --tags') == false
     die_log('[!] git push error')
+    return
 end
 
 # 验证podspec格式是否正确
