@@ -190,6 +190,6 @@ if system('git stash pop') == false
     puts color_text("There is a conflict, please handle it and retry", Color.red)
     return
 end
-system("git commit -am 'update version to #{new_version}'")
-system('git push origin')
-system("git tag #{new_version} && git push origin --tags")
+# system("git commit -am 'update version to #{new_version}'")
+# system('git push origin')
+# system("git tag #{new_version} && git push origin --tags")
