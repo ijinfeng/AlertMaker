@@ -76,19 +76,17 @@ puts color_text('Parse PodPushFile...', Color.white)
 File.open(cur_path + '/PodPushFile') do |f|
     f.each_line do |line|
         key_value = line.split('=')
-        key = key_value.first
+        key = key_value.first.to_s.gsub("\n", '').gsub(' ','').gsub("\t",'')
         value =
         if key_value.count > 1 
-            value = key_value.last
+            value = key_value.last.to_s.gsub("\n", '').gsub(' ','').gsub("\t",'')
         end
-        # puts "key=#{key},value=#{value}"
+        puts "key=#{key},value=#{value}"
         if key.to_s == 'PUSH_DIR_PATH' and not value.nil?
-            relate_dir_path = value.to_s.gsub("\n", '').gsub(' ','').gsub("\t",'')
+            relate_dir_path = value
             push_path = cur_path + '/' + relate_dir_path
-            # puts "Find releate dir path=#{relate_dir_path}"
         elsif key.to_s == 'USER_CUSTOM_VERSION' and not value.nil?
             user_custom_version = value
-            # puts "Find custom version config=#{user_custom_version}"
         elsif key.to_s == 'VERIFY_PODSPEC_FORMAT' and not value.nil?
             verify_podspec_format = value
         elsif key.to_s == 'POD_REPO_NAME' and not value.nil?
