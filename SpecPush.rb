@@ -223,12 +223,15 @@ if verify_podspec_format == true
 end
 
 # 提交代码到远程仓库
+puts color_text('Start upload code to remote', Color.white)
 system("git commit -am 'update version to #{new_version}'")
 system('git push origin')
 system("git tag #{new_version}")
 system('git push origin --tags')
 
 # 提交pod spec到spec仓库
-system("pod repo push #{pod_repo_name} --allow-warnings || pod repo push #{pod_repo_name} --allow-warnings --use-libraries")
+puts color_text("Start push pod repo to remote", Color.white)
+if system("pod repo push #{pod_repo_name} --allow-warnings || pod repo push #{pod_repo_name} --allow-warnings --use-libraries") == true 
+    puts color_text("Update success!", Color.green)
+end
 
-puts color_text("Update success!", Color.green)
