@@ -215,6 +215,7 @@ if system("pod repo | grep #{pod_repo_name}") == false
 end
 
 # 验证podspec格式是否正确
+puts "=======verify_podspec_format=#{verify_podspec_format}"
 if verify_podspec_format == true
     puts color_text('Start verify podspec...', Color.while)
     if system("pod spec lint #{podspec_path} --allow-warnings") == false
