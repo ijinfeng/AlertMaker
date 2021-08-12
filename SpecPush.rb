@@ -216,7 +216,7 @@ end
 puts color_text("Update version from ",Color.white) + color_text("#{cur_version}",Color.green) + color_text(" to ",Color.white) + color_text("#{new_version}", Color.green)
 
 # 将新数据反写回到原始podspec中
-# system("cp -f #{temp_podspec_path} #{podspec_path}")
+system("cp -f #{temp_podspec_path} #{podspec_path}")
 system("rm -f #{temp_podspec_path}")
 
 
@@ -226,6 +226,13 @@ if system("pod repo | grep #{pod_repo_name}") == false
     system("pod repo add #{pod_repo_name} #{pod_repo_source}")
 end
 
+# 提交代码到远程仓库
+puts color_text('Start upload code to remote', Color.white)
+system("git commit -am 'update version to #{new_version}'")
+system('git push origin')
+system("git tag #{new_version}")
+system('git push origin --tags')
+
 # 验证podspec格式是否正确
 if verify_podspec_format == true
     puts color_text("Start verify podspec '#{podspec_path}'...", Color.white)
@@ -234,15 +241,6 @@ if verify_podspec_format == true
         return
     end
 end
-
-return
-
-# 提交代码到远程仓库
-# puts color_text('Start upload code to remote', Color.white)
-# system("git commit -am 'update version to #{new_version}'")
-# system('git push origin')
-# system("git tag #{new_version}")
-# system('git push origin --tags')
 
 # 提交pod spec到spec仓库
 __source_url = "#{git_source}"
