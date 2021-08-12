@@ -70,7 +70,7 @@ POD_REPO_NAME=trunk
 #pod repo的源地址
 POD_REPO_SOURCE=https://cdn.cocoapods.org/
 #如果这个库是静态库，那么需要设置为true
-POD_IS_STATIC_LIBRARY=true")
+POD_IS_STATIC_LIBRARY=false")
     end
     puts color_text('Create PodPushFile', Color.green) 
 end
