@@ -39,11 +39,11 @@ end
 
 
 # 拉取最新代码
-if system('git pull --rebase origin') == false 
-    system('git rebase --abort')
-    puts color_text("There is a conflict, please handle it and retry", Color.red)
-    return
-end
+# if system('git pull --rebase origin') == false 
+#     system('git rebase --abort')
+#     puts color_text("There is a conflict, please handle it and retry", Color.red)
+#     return
+# end
 
 
 cur_path = Dir.pwd
@@ -62,6 +62,8 @@ if not File::exist?(cur_path + '/PodPushFile')
 PUSH_DIR_PATH=
 #是否允许用户自定义版本号，不填或填true将允许用户设置自定义的版本号，而不是自增版本号 
 USER_CUSTOM_VERSION=true
+#是否需要在执行脚本前自动不同代码，设置为true就会先拉取代码
+AUTO_SYNC_CODE=false
 #默认开启验证，可以跳过验证阶段
 VERIFY_PODSPEC_FORMAT=true
 #pod repo的名字，如果是私有库就填私有库的名字
