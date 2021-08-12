@@ -232,5 +232,9 @@ end
 puts color_text("Start push pod '#{podspec_path}' to remote repo '#{pod_repo_name}'", Color.white)
 if system("pod repo push #{pod_repo_name} #{podspec_path} --allow-warnings || pod repo push #{pod_repo_name} #{podspec_path} --allow-warnings --use-libraries") == true 
     puts color_text("Update success ☕️! Current version = #{cur_version}", Color.green)
+else
+    if pod_repo_name == 'trunk'
+        puts "If not timeout, you need to check your 'trunk' account like: 'pod trunk me', and register code is 'pod trunk register <your email> <your name>'"
+    end
 end
 
