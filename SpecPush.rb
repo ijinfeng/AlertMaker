@@ -1,11 +1,5 @@
 #! /usr/bin/ruby
 
-
-
-# 拉取最新代码
-# system('git stash')
-system('git pull --rebase origin')
-
 class Color
     def self.natural 
         0
@@ -188,5 +182,15 @@ puts "Update version from " + color_text("#{cur_version}",Color.green) + " to " 
 system("cp -f #{temp_podspec_path} #{podspec_path}")
 system("rm -f #{temp_podspec_path}")
 
-# system("git stash pop && git commit -am 'update version to #{new_version}'")
+
+# 拉取最新代码
+system('git stash')
+system('git pull --rebase origin')
+if system('git stash pop') == false 
+    puts "有冲突"
+    return
+end
+
+puts "res=#{res}"
+# system("git commit -am 'update version to #{new_version}'")
 # system("git tag #{new_version}")
