@@ -88,9 +88,9 @@ File.open(cur_path + '/PodPushFile') do |f|
             relate_dir_path = value
             push_path = cur_path + '/' + relate_dir_path
         elsif key.to_s == 'USER_CUSTOM_VERSION' and not value.nil?
-            user_custom_version = value
+            user_custom_version = value.to_i
         elsif key.to_s == 'VERIFY_PODSPEC_FORMAT' and not value.nil?
-            verify_podspec_format = value
+            verify_podspec_format = value.to_i
         elsif key.to_s == 'POD_REPO_NAME' and not value.nil?
             pod_repo_name = value.to_s
         elsif key.to_s == 'POD_REPO_SOURCE' and not value.nil?
