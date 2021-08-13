@@ -30,7 +30,7 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'AlertMaker/Classes/**/*'
+  s.source_files = 'AlertMaker/AlertMaker/Classes/**/*'
 
   # s.subspec 'Button' do |ss|
   #   ss.source_files = 'AlertMaker/Classes/Button/*.{h,m}'
