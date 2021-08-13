@@ -263,6 +263,6 @@ else
         return
     end
 end
-puts color_text("Update success ☕️! Current version = #{cur_version}", Color.green)
+puts color_text("Update success ☕️! Current version = #{new_version}", Color.green)
 
 
