@@ -236,9 +236,20 @@ typedef NS_ENUM(int, XCAlertControllerStyle) {
 
 @interface XCAlertBackgroundView : UIControl
 @property (nonatomic, weak) UIView *customAlert;
+@property (nonatomic, assign) UIEdgeInsets maskViewInsets;
+@property (nonatomic, strong) UIControl *bgMaskView;
 @end
 
 @implementation XCAlertBackgroundView
+
+- (UIControl *)bgMaskView {
+    if (!_bgMaskView) {
+        _bgMaskView = [UIControl new];
+        _bgMaskView.userInteractionEnabled = YES;
+        [self addSubview:_bgMaskView];
+    }
+    return _bgMaskView;
+}
 
 - (void)layoutSubviews {
     CGRect finalRect = CGRectZero;
@@ -246,6 +257,12 @@ typedef NS_ENUM(int, XCAlertControllerStyle) {
         finalRect = [(id<XCAlertContentProtocol>)self.customAlert frameForViewContent];
     }
     self.customAlert.frame = finalRect;
+}
+
+- (void)setMaskViewInsets:(UIEdgeInsets)maskViewInsets {
+    [self.bgMaskView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(maskViewInsets);
+    }];
 }
 
 @end
@@ -300,18 +317,43 @@ static char *kCustomAlertBindViewTransitionKey = "kCustomAlertBindViewTransition
     objc_setAssociatedObject(self.customAlert, kCustomAlertBindViewTransitionKey, self, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
     XCAlertBackgroundView *backgroundView = [[XCAlertBackgroundView alloc] init];
-    backgroundView.userInteractionEnabled = YES;
     self.backgroundView = backgroundView;
+    backgroundView.userInteractionEnabled = YES;
+    backgroundView.clipsToBounds = YES;
+    backgroundView.bgMaskView.clipsToBounds = YES;
     backgroundView.backgroundColor = [UIColor clearColor];
     [self.onView addSubview:backgroundView];
     [backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.onView);
+        if ([self.customAlert conformsToProtocol:@protocol(XCAlertContentProtocol)] && [self.customAlert respondsToSelector:@selector(insetsForMaskView)]) {
+            UIEdgeInsets insets = [(id<XCAlertContentProtocol>)self.customAlert insetsForMaskView];
+            // 设置不能穿透和没有设置，那么都是从顶部开始
+            if ([self.customAlert respondsToSelector:@selector(canGestureRecognizerThroughTheMaskView)] && [(id<XCAlertContentProtocol>)self.customAlert canGestureRecognizerThroughTheMaskView]) {
+                make.edges.mas_equalTo(insets);
+            } else {
+                make.edges.equalTo(self.onView);
+            }
+        } else {
+            make.edges.equalTo(self.onView);
+        }
     }];
-    [backgroundView addSubview:self.customAlert];
+    if ([self.customAlert conformsToProtocol:@protocol(XCAlertContentProtocol)] && [self.customAlert respondsToSelector:@selector(insetsForMaskView)]) {
+        UIEdgeInsets insets = [(id<XCAlertContentProtocol>)self.customAlert insetsForMaskView];
+        // 明确设置不能穿透或没设置，那么都是不能穿透
+        if ([self.customAlert respondsToSelector:@selector(canGestureRecognizerThroughTheMaskView)] && [(id<XCAlertContentProtocol>)self.customAlert canGestureRecognizerThroughTheMaskView]) {
+            backgroundView.maskViewInsets = UIEdgeInsetsZero;
+        } else {
+            backgroundView.maskViewInsets = insets;
+        }
+    } else {
+        backgroundView.maskViewInsets = UIEdgeInsetsZero;
+    }
+    [backgroundView.bgMaskView addSubview:self.customAlert];
     backgroundView.customAlert = self.customAlert;
+    
     
     if (self.dismissTapOnTemp) {
         [backgroundView addTarget:self action:@selector(actionForTapOnTemp:) forControlEvents:UIControlEventTouchUpInside];
+        [backgroundView.bgMaskView addTarget:self action:@selector(actionForTapOnTemp:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     CGRect finalRect = CGRectZero;
@@ -346,7 +388,7 @@ static char *kCustomAlertBindViewTransitionKey = "kCustomAlertBindViewTransition
         self.customAlert.transform = CGAffineTransformMakeScale(1.3, 1.3);
     }
     [UIView animateWithDuration:duration animations:^{
-        self.backgroundView.backgroundColor = finalBackgroundColor;
+        self.backgroundView.bgMaskView.backgroundColor = finalBackgroundColor;
         self.customAlert.alpha = 1;
         self.customAlert.transform = CGAffineTransformMakeScale(1.0, 1.0);
         self.customAlert.frame = finalRect;
@@ -380,7 +422,7 @@ static char *kCustomAlertBindViewTransitionKey = "kCustomAlertBindViewTransition
     }
     
     [UIView animateWithDuration:duration animations:^{
-        self.backgroundView.backgroundColor = [UIColor clearColor];
+        self.backgroundView.bgMaskView.backgroundColor = [UIColor clearColor];
         self.customAlert.frame = finalRect;
         if (animation == XCAlertAnimationPopAlert) {
             self.customAlert.alpha = 0;

@@ -51,6 +51,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// called when alert remove from superview
 - (void)alertDidDismiss;
 
+/// set mask view's insets, default {0, 0, 0, 0}
+- (UIEdgeInsets)insetsForMaskView;
+
+/// whether the gesture can through the mask view
+- (BOOL)canGestureRecognizerThroughTheMaskView;
+
 @end
 
 NS_ASSUME_NONNULL_END

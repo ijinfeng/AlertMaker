@@ -8,6 +8,7 @@
 
 #import "XCViewController.h"
 #import <AlertMaker/XCCustomAlertView.h>
+#import "XCCustomSheet.h"
 
 @interface XCViewController ()
 
@@ -27,7 +28,11 @@
     [alert setContent:@"我很好呀"];
     [alert addDefaultAction:@"OK" action:^{
         [[[[[[XCCustomAlertMaker sheet] setTitle:@"好的"] setContent:@"学习学习学习学习"] addDefaultAction:@"1" action:^{
-                                    
+                                
+            
+            XCAlertMaker.custom([XCCustomSheet new]).presentFrom(self);
+            
+            
                         }] addCancelAction:@"2" action:^{
                             
                         }] presentFrom:self];

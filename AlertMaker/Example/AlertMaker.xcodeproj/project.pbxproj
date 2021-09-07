@@ -22,6 +22,7 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
+		7890EB9826E741AD00A7ACD4 /* XCCustomSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 7890EB9726E741AD00A7ACD4 /* XCCustomSheet.m */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		89C60E76D11CB10D260B7CE3 /* Pods_AlertMaker_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F185B152394E1426D127A9D3 /* Pods_AlertMaker_Tests.framework */; };
 /* End PBXBuildFile section */
@@ -37,8 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4F9F8FCD8D49FF54F6058343 /* AlertMaker.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = AlertMaker.podspec; path = ../AlertMaker.podspec; sourceTree = "<group>"; };
-		5466F9DF84AE9EE3D696B511 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		4F9F8FCD8D49FF54F6058343 /* AlertMaker.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = AlertMaker.podspec; path = ../AlertMaker.podspec; sourceTree = "<group>"; };
+		5466F9DF84AE9EE3D696B511 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* AlertMaker_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlertMaker_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -59,10 +60,12 @@
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7890EB9626E741AD00A7ACD4 /* XCCustomSheet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XCCustomSheet.h; sourceTree = "<group>"; };
+		7890EB9726E741AD00A7ACD4 /* XCCustomSheet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XCCustomSheet.m; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8AC69AAD0AB58381F1D915D7 /* Pods_AlertMaker_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AlertMaker_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DEAB7DC5E258DB6A50B9320 /* Pods-AlertMaker_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlertMaker_Example.debug.xcconfig"; path = "Target Support Files/Pods-AlertMaker_Example/Pods-AlertMaker_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		963BB99C78808A52C814B613 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		963BB99C78808A52C814B613 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		C02FA28A7E315F695F96DF0B /* Pods-AlertMaker_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlertMaker_Example.release.xcconfig"; path = "Target Support Files/Pods-AlertMaker_Example/Pods-AlertMaker_Example.release.xcconfig"; sourceTree = "<group>"; };
 		C82D514DF7F21B99BCDB969A /* Pods-AlertMaker_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlertMaker_Tests.debug.xcconfig"; path = "Target Support Files/Pods-AlertMaker_Tests/Pods-AlertMaker_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		D19FD4CEBCB246B8FA0998C6 /* Pods-AlertMaker_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AlertMaker_Tests.release.xcconfig"; path = "Target Support Files/Pods-AlertMaker_Tests/Pods-AlertMaker_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -137,6 +140,8 @@
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6003F5A5195388D20070C39A /* XCViewController.h */,
 				6003F5A6195388D20070C39A /* XCViewController.m */,
+				7890EB9626E741AD00A7ACD4 /* XCCustomSheet.h */,
+				7890EB9726E741AD00A7ACD4 /* XCCustomSheet.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
@@ -193,7 +198,6 @@
 				C82D514DF7F21B99BCDB969A /* Pods-AlertMaker_Tests.debug.xcconfig */,
 				D19FD4CEBCB246B8FA0998C6 /* Pods-AlertMaker_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -258,6 +262,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -367,6 +372,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F59E195388D20070C39A /* XCAppDelegate.m in Sources */,
+				7890EB9826E741AD00A7ACD4 /* XCCustomSheet.m in Sources */,
 				6003F5A7195388D20070C39A /* XCViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
