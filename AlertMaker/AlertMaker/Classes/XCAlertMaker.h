@@ -93,6 +93,10 @@ typedef NS_ENUM(NSInteger, XCAlertActionStyle) {
 
 @interface UIView (XCAlertPresent)
 
+@property (nonatomic, strong, readonly) XCAlertMaker *XC_alertMaker;
+
+- (XCAlertMaker *)XC_presentFrom:(id)viewOrViewController;
+
 - (void)XC_dismissAlertView;
 
 - (void)XC_setAlertViewHidden:(BOOL)hidden;

@@ -827,6 +827,17 @@ static char *kCustomAlertBindViewTransitionKey = "kCustomAlertBindViewTransition
 
 @implementation UIView (XCAlertPresent)
 
+- (XCAlertMaker *)XC_alertMaker {
+    XCAlertMaker *maker = [[XCAlertMaker alloc] initWithAlertStyle:XCAlertControllerStyleCustom custom:(id<XCAlertContentProtocol>)self];
+    return maker;
+}
+
+- (XCAlertMaker *)XC_presentFrom:(id)viewOrViewController {
+    XCAlertMaker *maker = self.XC_alertMaker;
+    maker.presentFrom(viewOrViewController);
+    return maker;
+}
+
 - (void)XC_dismissAlertView {
     XCAlertViewTransition *t = objc_getAssociatedObject(self, kCustomAlertBindViewTransitionKey);
     if (t) {
