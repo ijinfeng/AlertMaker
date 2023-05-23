@@ -314,7 +314,7 @@ static char *kCustomAlertBindViewTransitionKey = "kCustomAlertBindViewTransition
     if (!self.customAlert) {
         return;
     }
-    objc_setAssociatedObject(self.customAlert, kCustomAlertBindViewTransitionKey, self, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self.onView, kCustomAlertBindViewTransitionKey, self, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
     XCAlertBackgroundView *backgroundView = [[XCAlertBackgroundView alloc] init];
     self.backgroundView = backgroundView;
