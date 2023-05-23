@@ -433,6 +433,7 @@ static char *kCustomAlertBindViewTransitionKey = "kCustomAlertBindViewTransition
         if ([self.customAlert respondsToSelector:@selector(alertDidDismiss)]) {
             [((id<XCAlertContentProtocol>)self.customAlert) alertDidDismiss];
         }
+        objc_setAssociatedObject(self.onView, kCustomAlertBindViewTransitionKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }];
 }
 
