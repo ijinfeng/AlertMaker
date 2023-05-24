@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="whP-gf-Uak">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="wQg-tq-qST">
+            <objects>
+                <viewController id="whP-gf-Uak" customClass="XCViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uEw-UM-LJ8"/>
+                        <viewControllerLayoutGuide type="bottom" id="Mvr-aV-6Um"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TpU-gO-2f1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F1Y-pA-1Xs">
+                                <rect key="frame" x="93.5" y="60" width="188" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="显示view类型的sheet"/>
+                                <connections>
+                                    <action selector="onClickSheet:" destination="whP-gf-Uak" eventType="touchUpInside" id="lIV-c9-R4E"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cIU-8P-vd7">
+                                <rect key="frame" x="78.5" y="115" width="218" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="显示controller类型的alert"/>
+                                <connections>
+                                    <action selector="onClickAlert:" destination="whP-gf-Uak" eventType="touchUpInside" id="WR0-Kz-P9Z"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Uy-eb-LU6">
+                                <rect key="frame" x="97.5" y="170" width="180" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="显示view类型的alert"/>
+                                <connections>
+                                    <action selector="onClickViewAlert:" destination="whP-gf-Uak" eventType="touchUpInside" id="2JN-xd-qkZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="4Uy-eb-LU6" firstAttribute="top" secondItem="cIU-8P-vd7" secondAttribute="bottom" constant="20" id="COI-3G-G3H"/>
+                            <constraint firstItem="F1Y-pA-1Xs" firstAttribute="centerX" secondItem="TpU-gO-2f1" secondAttribute="centerX" id="X2j-BM-aOM"/>
+                            <constraint firstItem="cIU-8P-vd7" firstAttribute="top" secondItem="F1Y-pA-1Xs" secondAttribute="bottom" constant="20" id="ePf-ID-zzW"/>
+                            <constraint firstItem="F1Y-pA-1Xs" firstAttribute="top" secondItem="uEw-UM-LJ8" secondAttribute="bottom" constant="60" id="hsy-HV-aae"/>
+                            <constraint firstItem="4Uy-eb-LU6" firstAttribute="centerX" secondItem="TpU-gO-2f1" secondAttribute="centerX" id="rHx-54-JLh"/>
+                            <constraint firstItem="cIU-8P-vd7" firstAttribute="centerX" secondItem="TpU-gO-2f1" secondAttribute="centerX" id="tDv-6p-zjZ"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tc2-Qw-aMS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="305" y="433"/>
+        </scene>
+    </scenes>
+</document>

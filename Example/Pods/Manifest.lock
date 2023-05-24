@@ -1,0 +1,16 @@
+PODS:
+  - AlertMaker (1.0.1)
+
+DEPENDENCIES:
+  - AlertMaker (from `../`)
+
+EXTERNAL SOURCES:
+  AlertMaker:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  AlertMaker: 2d806d4c0f27fb76ae8e848677b290df11e0e6dc
+
+PODFILE CHECKSUM: 96a9cd1c8b9d890a177bccf2aeb784b93cc0ab71
+
+COCOAPODS: 1.12.0
