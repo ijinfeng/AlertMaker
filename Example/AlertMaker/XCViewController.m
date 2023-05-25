@@ -30,7 +30,9 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     XCAlertMaker.sheet.title(@"我是鼻头爱").addDefaultAction(@"打开alert", ^{
-        XCAlertMaker.custom([XCCustomAlert new]).onTapDismiss(YES).presentFrom(self);
+        XCAlertMaker.custom([XCCustomAlert new])
+                .onTapDismiss(YES)
+                .presentFrom(self);
     }).addDefaultAction(@"打开sheet", ^{
         
     }).presentFrom(self);
