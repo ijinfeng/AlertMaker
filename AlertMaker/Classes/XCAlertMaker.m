@@ -685,6 +685,55 @@ typedef NS_ENUM(int, XCAlertControllerStyle) {
     return [vts copy];
 }
 
+- (XCAlertViewTransition *)findWithPresent:(id)present {
+    UIView *v;
+    UIViewController *c;
+    if ([present isKindOfClass:[UIView class]]) {
+        v = (UIView *)present;
+    } else if ([present isKindOfClass:[UIViewController class]]) {
+        c = (UIViewController *)present;
+    } else {
+        return nil;
+    }
+    for (XCAlertViewTransition *alert in _alerts) {
+        if (alert.configuration.alertIsController) {
+            if ((UIViewController *)alert.onView.nextResponder == c) {
+                return alert;
+            }
+        } else {
+            if (alert.onView == v) {
+                return alert;
+            }
+        }
+    }
+    return nil;
+}
+
+- (NSArray<XCAlertViewTransition *> *)findAllWithPresent:(id)present {
+    UIView *v;
+    UIViewController *c;
+    if ([present isKindOfClass:[UIView class]]) {
+        v = (UIView *)present;
+    } else if ([present isKindOfClass:[UIViewController class]]) {
+        c = (UIViewController *)present;
+    } else {
+        return nil;
+    }
+    NSMutableArray *vts = [NSMutableArray array];
+    for (XCAlertViewTransition *alert in _alerts) {
+        if (alert.configuration.alertIsController) {
+            if ((UIViewController *)alert.onView.nextResponder == c) {
+                [vts addObject:alert];
+            }
+        } else {
+            if (alert.onView == v) {
+                [vts addObject:alert];
+            }
+        }
+    }
+    return [vts copy];
+}
+
 @end
 
 #pragma mark - Controller Present caegory
@@ -693,16 +742,25 @@ typedef NS_ENUM(int, XCAlertControllerStyle) {
 
 - (void)xc_setNeedsUpdateFrameWithAnimate:(BOOL)animate {
     XCAlertViewTransition *vt = [[XCAlertManager shared] findWithCustom:self];
+    if (!vt) {
+        vt = [[XCAlertManager shared] findWithPresent:self];
+    }
     [vt setNeedsUpdateFrameWithAnimate:animate];
 }
 
 - (void)xc_dismissAlert {
     XCAlertViewTransition *vt = [[XCAlertManager shared] findWithCustom:self];
+    if (!vt) {
+        vt = [[XCAlertManager shared] findWithPresent:self];
+    }
     [vt dismiss];
 }
 
 - (void)xc_setAlertHidden:(BOOL)isHidden {
     XCAlertViewTransition *vt = [[XCAlertManager shared] findWithCustom:self];
+    if (!vt) {
+        vt = [[XCAlertManager shared] findWithPresent:self];
+    }
     [vt setHidden:isHidden];
 }
 
@@ -713,16 +771,25 @@ typedef NS_ENUM(int, XCAlertControllerStyle) {
 
 - (void)xc_setNeedsUpdateFrameWithAnimate:(BOOL)animate {
     XCAlertViewTransition *vt = [[XCAlertManager shared] findWithCustom:self];
+    if (!vt) {
+        vt = [[XCAlertManager shared] findWithPresent:self];
+    }
     [vt setNeedsUpdateFrameWithAnimate:animate];
 }
 
 - (void)xc_dismissAlert {
     XCAlertViewTransition *vt = [[XCAlertManager shared] findWithCustom:self];
+    if (!vt) {
+        vt = [[XCAlertManager shared] findWithPresent:self];
+    }
     [vt dismiss];
 }
 
 - (void)xc_setAlertHidden:(BOOL)isHidden {
     XCAlertViewTransition *vt = [[XCAlertManager shared] findWithCustom:self];
+    if (!vt) {
+        vt = [[XCAlertManager shared] findWithPresent:self];
+    }
     [vt setHidden:isHidden];
 }
 
